@@ -18,8 +18,12 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/logout', function(req, res, next) {
-  req.session.destroy();
-  res.redirect('index');
+  req.session.destroy(function() {
+    res.clearCookie('connect.sid');
+    res.redirect('index');
+  });
+  // req.session.destroy();
+  // res.redirect('index');
 });
 
 module.exports = router;
